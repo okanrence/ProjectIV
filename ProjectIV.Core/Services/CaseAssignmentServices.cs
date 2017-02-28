@@ -1,5 +1,6 @@
-﻿using ProjectIV.Core.Domain;
-//using ProjectIV.Core.Helpers;
+﻿using MyAppTools.Helpers;
+using ProjectIV.Core.Domain;
+using ProjectIV.Core.Infrastructure;
 using ProjectIV.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -23,25 +24,26 @@ namespace ProjectIV.Core.Services
     }
     public class CaseAssignmentServices : BaseService, ICaseAssignmentServices
     {
+        private readonly IRepository<CaseAssignment> _caseAssignmentRepo;
+        IMappingHelper _mappingHelper;
+        public CaseAssignmentServices()
+        {
+            _caseAssignmentRepo = new BaseRepository<CaseAssignment>(this.unitOfWork);
+            _mappingHelper = new MappingHelper();
+        }
         public int Add(CaseAssignmentVM oCaseAssignmentVM)
         {
-            throw new NotImplementedException();
-        }
+            var oCaseAssignment = _mappingHelper.Map<CaseAssignment>(oCaseAssignmentVM);
+            _caseAssignmentRepo.Add(oCaseAssignment, GetType().Name);
 
-        public int Add(CaseMappingVM oCaseMappingVM)
-        {
-            throw new NotImplementedException();
+            return this.unitOfWork.SaveChanges();
         }
-
+       
         public bool Delete(int CaseAssignmentID)
         {
             throw new NotImplementedException();
         }
 
-        public List<CaseMappingVM> GetList()
-        {
-            throw new NotImplementedException();
-        }
 
         public List<CaseAssignmentVM> GetListbyCase(int CaseId, int companyId)
         {
