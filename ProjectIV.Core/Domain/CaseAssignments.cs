@@ -8,20 +8,19 @@ using System.Threading.Tasks;
 
 namespace ProjectIV.Core.Domain
 {
-    public class StaffGroup : baseDomain
+    public class CaseAssignment : baseDomain
     {
-        public StaffGroup()
+        public CaseAssignment()
         {
-            AddedStaff = new List<Staff>();
-            AssignedCases = new List<Case>();
+            AssignedStaff = new List<Staff>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StaffGroupId { get; set; }
-        public string GroupName { get; set; }
+        public int CaseAssignmentId { get; set; }
+        public int AssignmentType { get; set; }
 
         public virtual ICollection<Staff> AssignedStaff { get; set; }
-        public virtual ICollection<Case> AssignedCases { get; set; }
+        public virtual StaffGroup AssignedStaffGroup { get; set; }
 
 
     }

@@ -16,6 +16,8 @@ namespace ProjectIV.Core
         public virtual DbSet<CaseStatus> CaseStatus { get; set; }
         public virtual DbSet<CaseType> CaseType { get; set; }
         public virtual DbSet<ClientContact> ClientContact { get; set; }
+        public virtual DbSet<StaffGroup> StaffGroup { get; set; }
+        public virtual DbSet<CaseAssignment> CaseAssignment { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

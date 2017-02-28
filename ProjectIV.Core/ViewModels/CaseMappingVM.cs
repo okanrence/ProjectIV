@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectIV.Core.Models
+namespace ProjectIV.Core.ViewModels
 {
     public class CaseMappingVM
     {
