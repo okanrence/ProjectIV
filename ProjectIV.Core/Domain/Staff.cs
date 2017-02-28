@@ -37,8 +37,8 @@ namespace ProjectIV.Core.Domain
         public string ProfileStatus { get; set; }
         [MaxLength(1)]
         public string ProfileType { get; set; }
-
         public virtual ICollection<Case> AssignedCases { get; set; }
+        public virtual StaffGroup StaffGroup { get; set; }
 
 
     }

@@ -68,6 +68,7 @@
     <Compile Include="Domain\CompanyConfig.cs" />
     <Compile Include="Domain\DomainBase.cs" />
     <Compile Include="Domain\Staff.cs" />
+    <Compile Include="Domain\StaffGroup.cs" />
     <Compile Include="Infrastructure\BaseRepository.cs" />
     <Compile Include="Infrastructure\AppDBContext.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />
