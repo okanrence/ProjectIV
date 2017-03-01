@@ -5,7 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Owin;
 using ProjectIV.WebUI.Models;
-using ProjectIV.Core.Models;
+using ProjectIV.Core.ViewModels;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using MyAppTools.Services;

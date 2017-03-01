@@ -12,7 +12,7 @@ namespace ProjectIV.Core.Domain
     {
         public StaffGroup()
         {
-            AddedStaff = new List<Staff>();
+            AssignedStaff = new List<Staff>();
             AssignedCases = new List<Case>();
         }
         [Key]

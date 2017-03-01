@@ -1,7 +1,7 @@
 ﻿using MyAppTools.Helpers;
 using ProjectIV.Core.Domain;
 using ProjectIV.Core.Infrastructure;
-using ProjectIV.Core.Models;
+using ProjectIV.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

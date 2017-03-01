@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MyAppTools.Helpers;
 using ProjectIV.Core.Domain;
-using ProjectIV.Core.Models;
+using ProjectIV.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +36,14 @@ namespace ProjectIV.WebApi.App_Start
                 cfg.CreateMap<Staff, AssignStaffVM>()
                 .IgnoreAllNonExisting()
                 .ReverseMap();
+
+                cfg.CreateMap<StaffGroupVM, StaffGroup>()
+               .IgnoreAllNonExisting()
+               .ReverseMap();
+
+                cfg.CreateMap<CaseAssignmentVM, CaseAssignment>()
+              .IgnoreAllNonExisting()
+              .ReverseMap();
             });
 
             Mapper.AssertConfigurationIsValid();

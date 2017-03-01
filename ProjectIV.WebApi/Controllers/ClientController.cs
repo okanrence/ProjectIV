@@ -1,6 +1,6 @@
 ﻿using Byaxiom.Logger;
 using ProjectIV.Core.Domain;
-using ProjectIV.Core.Models;
+using ProjectIV.Core.ViewModels;
 using ProjectIV.Core.Services;
 using System;
 using System.Collections.Generic;

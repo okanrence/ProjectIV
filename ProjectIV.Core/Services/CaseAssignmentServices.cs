@@ -15,12 +15,12 @@ namespace ProjectIV.Core.Services
     public interface ICaseAssignmentServices
     {
         int Add(CaseAssignmentVM oCaseAssignmentVM);
-        bool Update(CaseAssignmentVM oCaseAssignmentVM);
+        int Update(CaseAssignmentVM oCaseAssignmentVM);
         bool Delete(int CaseAssignmentID);
-        List<CaseAssignmentVM> GetListByGroup(int StaffGroupID, int companyId);
-        List<CaseAssignmentVM> GetListbyStaff(int staffId, int companyId);
-        List<CaseAssignmentVM> GetListbyCase(int CaseId, int companyId);
-        List<CaseAssignmentVM> GetList();
+        List<CaseAssignmentVM> GetListByGroup(StaffGroup oStaffGroup, string companyId);
+        List<CaseAssignmentVM> GetListbyStaff(Staff oStaff, string companyId);
+        List<CaseAssignmentVM> GetListbyCase(Case oCase, string companyId);
+        List<CaseAssignmentVM> GetList(string companyId);
     }
     public class CaseAssignmentServices : BaseService, ICaseAssignmentServices
     {
@@ -38,46 +38,76 @@ namespace ProjectIV.Core.Services
 
             return this.unitOfWork.SaveChanges();
         }
-       
+
         public bool Delete(int CaseAssignmentID)
         {
             throw new NotImplementedException();
         }
 
-
-        public List<CaseAssignmentVM> GetListbyCase(int CaseId, int companyId)
+        public List<CaseAssignmentVM> GetListbyCase(Case oCase, string companyId)
         {
-            throw new NotImplementedException();
+            var oCaseAssignmentList = _caseAssignmentRepo.All(GetType().Name).Where(x => x.CompanyId == companyId && x.CasesAssigned == oCase).ToList();
+            //foreach (var o in oCaseAssignmentList)
+            //{
+            //    o.AssignedStaff = new sta { CaseStatusId = o.CaseStatus.CaseStatusId, CaseStatusName = ((Enums.CaseStatus)o.CaseStatus.CaseStatusId).ToString() };
+            //    o.CaseType = new CaseType { CaseTypeId = o.CaseType.CaseTypeId, CaseTypeName = ((Enums.CaseTypes)o.CaseType.CaseTypeId).ToString() };
+            //}
+            var ocaVMList = _mappingHelper.Map<List<CaseAssignmentVM>>(oCaseAssignmentList);
+            //foreach (var o in oClientVMList)
+            //{
+            //    o.CaseTypeName = ((Enums.CaseTypes)o.CaseTypeId).ToString();
+            //    o.CaseStatusName = ((Enums.CaseStatus)o.CaseStatusId).ToString();
+            //}
+            return ocaVMList;
         }
 
-        public List<CaseMappingVM> GetListByCase(int caseId, int companyId)
+      
+
+        public List<CaseAssignmentVM> GetListByGroup(StaffGroup oStaffGroup, string companyId)
         {
-            throw new NotImplementedException();
+            var oCaseAssignmentList = _caseAssignmentRepo.All(GetType().Name).Where(x => x.CompanyId == companyId && x.AssignedStaffGroup == oStaffGroup).ToList();
+            var ocaVMList = _mappingHelper.Map<List<CaseAssignmentVM>>(oCaseAssignmentList);
+            return ocaVMList;
+
         }
 
-        public List<CaseAssignmentVM> GetListByGroup(int StaffGroupID, int companyId)
+        public int Update(CaseAssignmentVM oCaseAssignmentVM)
         {
-            throw new NotImplementedException();
+            var modifiedCa = _mappingHelper.Map<CaseAssignment>(oCaseAssignmentVM);
+            var originalCa = _caseAssignmentRepo.Find(modifiedCa.CaseAssignmentId);
+            originalCa.AssignedStaff = modifiedCa.AssignedStaff;
+            originalCa.AssignedStaffGroup = modifiedCa.AssignedStaffGroup;
+            originalCa.AssignmentType = modifiedCa.AssignmentType;
+            originalCa.CasesAssigned = modifiedCa.CasesAssigned;
+            originalCa.DateLastUpdated = modifiedCa.DateLastUpdated;
+
+            _caseAssignmentRepo.Edit(originalCa, GetType().Name);
+
+            return unitOfWork.SaveChanges();
         }
 
-        public List<CaseMappingVM> GetListbyStaff(int staffId, int companyId)
+        //List<CaseAssignmentVM> ICaseAssignmentServices.GetList(string companyId)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        public List<CaseAssignmentVM> GetList(string companyId)
         {
-            throw new NotImplementedException();
+            var oCaseAssignmentList = _caseAssignmentRepo.All(GetType().Name).Where(x => x.CompanyId == companyId).ToList();
+            var ocaVMList = _mappingHelper.Map<List<CaseAssignmentVM>>(oCaseAssignmentList);
+            return ocaVMList;
         }
 
-        public bool Update(CaseAssignmentVM oCaseAssignmentVM)
-        {
-            throw new NotImplementedException();
-        }
+        //List<CaseAssignmentVM> GetListbyStaff(Staff oStaff, string companyId)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        List<CaseAssignmentVM> ICaseAssignmentServices.GetList()
+        public List<CaseAssignmentVM> GetListbyStaff(Staff oStaff, string companyId)
         {
-            throw new NotImplementedException();
-        }
-
-        List<CaseAssignmentVM> ICaseAssignmentServices.GetListbyStaff(int staffId, int companyId)
-        {
-            throw new NotImplementedException();
+            var oCaseAssignmentList = _caseAssignmentRepo.All(GetType().Name).Where(x => x.CompanyId == companyId && x.AssignedStaff == oStaff).ToList();
+            var ocaVMList = _mappingHelper.Map<List<CaseAssignmentVM>>(oCaseAssignmentList);
+            return ocaVMList;
         }
     }
 
